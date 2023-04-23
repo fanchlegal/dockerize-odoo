@@ -1,0 +1,33 @@
+version: '3.8'
+services:
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=odoo
+      - POSTGRES_PASSWORD=pwd@odoo
+      - POSTGRES_DB=postgres
+      - PGDATA=/var/lib/postgresql/data/pgdata
+    restart: always # run as a service
+    volumes:
+      - db-data:/var/lib/postgresql/data/pgdata
+
+  odoo:
+    image: odoo:16-prod
+    user: odoo
+    depends_on:
+      - db
+    ports:
+      - "8069:8069"
+      - "8072:8072" # live chat
+    command: "python odoo-bin -c odoo.conf"
+    # command:  "python odoo-bin --addons-path=/odoo/addons/,/odoo/odoo/addons/  --db_host=db --db_user=$PGUSER --db_password=$PGPASSWD"
+    environment:
+      - HOST=db
+      - USER=odoo
+      - PASSWORD=pwd@odoo
+    volumes:
+      - ./:/odoo
+    restart: always # run as a service
+
+volumes:
+  db-data:
