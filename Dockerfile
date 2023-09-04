@@ -39,7 +39,7 @@ RUN apt-get update -o Acquire::AllowInsecureRepositories=true \
     python-openid \
     python-psycopg2 \
     python-psutil \
-    python-pybabel \
+    python-babel \
     python-pychart \
     python-pydot \
     python-pyparsing \
@@ -56,7 +56,7 @@ RUN apt-get update -o Acquire::AllowInsecureRepositories=true \
     python-zsi \
     poppler-utils \
     python-pip \
-    python-pypdf \
+    python-pypdf2 \
     python-passlib \
     python-decorator \
     gcc \
@@ -90,8 +90,7 @@ RUN apt-get update -o Acquire::AllowInsecureRepositories=true \
     npm \
     git
 
-RUN ln -s /usr/bin/nodejs /usr/bin/node
-   && npm install -g less less-plugin-clean-css
+RUN npm install -g less less-plugin-clean-css
   
 
 RUN  echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/apt/sources.list.d/pgdg.list \ 
@@ -105,6 +104,8 @@ RUN curl -o kwkhtmltopdf_client -SL https://raw.githubusercontent.com/camptocamp
     && mv kwkhtmltopdf_client /usr/local/bin/wkhtmltopdf \
     && chmod a+x /usr/local/bin/wkhtmltopdf  \
     && sed -i "1 s/python/python3/g" /usr/local/bin/wkhtmltopdf
+
+RUN apt-get install -y --no-install-recommends libsasl2-dev python-dev libldap2-dev libssl-dev
 
 RUN     python2.7 -m pip install --force-reinstall pip "setuptools<58" \
         && pip install -r /odoo/base_requirements.txt --ignore-installed 
