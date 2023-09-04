@@ -1,7 +1,7 @@
 version: '3.8'
 services:
   db:
-    image: postgres:15
+    image: postgres:10
     environment:
       - POSTGRES_USER=odoo
       - POSTGRES_PASSWORD=pwd@odoo
@@ -12,7 +12,7 @@ services:
       - db-data:/var/lib/postgresql/data/pgdata
 
   odoo:
-    image: odoo:16-prod
+    image: odoo:10-prod
     user: odoo
     depends_on:
       - db
