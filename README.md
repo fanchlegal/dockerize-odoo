@@ -8,7 +8,7 @@
 - 1 create own docker image
 
    ```
-   docker build -t odoo:16-prod .
+   docker build -t odoo:10-prod .
    ```
 - 2 Copy docker-compose file to your odoo source code place and create own odoo.conf
 
