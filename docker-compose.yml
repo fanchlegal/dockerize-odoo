@@ -9,7 +9,7 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     restart: always # run as a service
     volumes:
-      - db-data:/var/lib/postgresql/data/pgdata
+      - ../db-data:/var/lib/postgresql/data/pgdata
 
   odoo:
     image: odoo:10-prod
@@ -26,9 +26,9 @@ services:
       - USER=odoo
       - PASSWORD=pwd@odoo
     volumes:
-      - ./odoo:/odoo
+      - ../OCB:/odoo
       - ./conf:/etc/odoo
+      - ../addons-extra:/odoo-addons
+      - ../odoo-data/:/odoo/data
     restart: always # run as a service
 
-volumes:
-  db-data:
