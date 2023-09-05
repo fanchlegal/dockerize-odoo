@@ -99,13 +99,22 @@ RUN  echo "deb http://apt.postgresql.org/pub/repos/apt buster-pgdg main" > /etc/
        &&  apt-get install -y --no-install-recommends postgresql-client libpq-dev \
        &&  apt-get -y install -f --no-install-recommends 
 
-RUN curl -o kwkhtmltopdf_client -SL https://raw.githubusercontent.com/camptocamp/kwkhtmltopdf/master/client/python/kwkhtmltopdf_client.py \ 
-    && echo '8676b798f57c67e3a801caad4c91368929c427ce kwkhtmltopdf_client' | sha1sum -c - \
-    && mv kwkhtmltopdf_client /usr/local/bin/wkhtmltopdf \
-    && chmod a+x /usr/local/bin/wkhtmltopdf  \
-    && sed -i "1 s/python/python3/g" /usr/local/bin/wkhtmltopdf
+RUN curl -o wkhtmltox.deb -sSL https://github.com/wkhtmltopdf/wkhtmltopdf/releases/download/0.12.5/wkhtmltox_0.12.5-1.bionic_amd64.deb
 
-RUN apt-get install -y --no-install-recommends libsasl2-dev python-dev libldap2-dev libssl-dev
+RUN apt-get install -y --no-install-recommends \
+    libsasl2-dev \
+    python-dev \
+    libldap2-dev \
+    libssl-dev \
+    unixodbc \
+    unixodbc-dev \
+    libnode-dev \
+    nodejs \
+    node-gyp \
+    node-less \
+    npm
+
+RUN npm install -g less@3.0.4 less-plugin-clean-css
 
 RUN     python2.7 -m pip install --force-reinstall pip "setuptools<58" \
         && pip install -r /odoo/base_requirements.txt --ignore-installed 
