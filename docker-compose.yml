@@ -9,7 +9,7 @@ services:
       - PGDATA=/var/lib/postgresql/data/pgdata
     restart: always # run as a service
     volumes:
-      - db-data:/var/lib/postgresql/data/pgdata
+      - ../db-data:/var/lib/postgresql/data/pgdata
 
   odoo:
     image: odoo:16-prod
@@ -19,15 +19,16 @@ services:
     ports:
       - "8069:8069"
       - "8072:8072" # live chat
-    command: "python odoo-bin -c odoo.conf"
+    command: "python odoo-bin -c /etc/odoo/odoo.conf"
     # command:  "python odoo-bin --addons-path=/odoo/addons/,/odoo/odoo/addons/  --db_host=db --db_user=$PGUSER --db_password=$PGPASSWD"
     environment:
       - HOST=db
       - USER=odoo
       - PASSWORD=pwd@odoo
     volumes:
-      - ./:/odoo
+      - ../OCB:/odoo
+      - .conf:/etc/odoo
+      - ../addons-extra:/odoo-addons
+      - ../odoo-data:/odoo/data
     restart: always # run as a service
 
-volumes:
-  db-data:

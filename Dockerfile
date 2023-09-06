@@ -1,4 +1,4 @@
-FROM python:3.10-slim 
+FROM python:slim-bullseye
 MAINTAINER Pavankumar Panchal (pav19892@gmail.com)
 ARG UID=222
 

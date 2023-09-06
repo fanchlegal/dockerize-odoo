@@ -83,3 +83,13 @@ pycodestyle==2.9.1
 pyflakes==2.5.0
 unicodecsv==0.14.1
 wrapt==1.14.1
+
+schwifty==2022.9.0
+openerp-client-lib==1.1.2
+Pygments==2.14.0
+graphql-server
+graphene
+pdfminer.six==20200726
+pypdftk==0.5
+pypdf==3.8.1
+astor==0.8.1
