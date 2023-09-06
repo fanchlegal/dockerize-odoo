@@ -29,6 +29,6 @@ services:
       - ../OCB:/odoo
       - ./conf:/etc/odoo
       - ../addons-extra:/odoo-addons
-      - ../odoo-data/:/odoo/data
+      - ../odoo-data:/odoo/data
     restart: always # run as a service
 
